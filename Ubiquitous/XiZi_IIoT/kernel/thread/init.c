@@ -219,6 +219,11 @@ int XiUOSStartup(void)
 
     CreateKServiceKTask();
 
+	// int i = 0;
+    // while(i != 100000000) {
+    //     i++;
+    // }
+
 #ifdef KERNEL_COMPONENTS_INIT
 	CreateEnvInitTask();
 #else
@@ -250,6 +255,11 @@ extern int InitUserspace(void);
 #ifdef BSP_USING_WDT
     StartWatchdog();
 #endif
+
+	// int i = 0;
+    // while(i != 100000000) {
+    //     i++;
+    // }
 
 	StartupOsAssign();
     return 0;

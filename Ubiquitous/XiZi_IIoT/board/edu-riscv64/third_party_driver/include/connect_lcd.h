@@ -47,6 +47,7 @@ void DrvLcdClear(uint16_t color);
 void LcdDrawLine(uint16 x1, uint16 y1, uint16 x2, uint16 y2,uint16 color);							
 void LcdDrawRectangle(uint16 x1, uint16 y1, uint16 x2, uint16 y2,uint16 color);		   			
 void LcdDrawCircle(uint16 x0,uint16 y0,uint8 r,uint16 color);
+void LcdShowString(uint16_t x,uint16_t y,uint16_t width,uint16_t height,uint8 size,uint8 *p,uint16_t color,uint16_t back_color);
 
 int HwLcdInit(void);
 #endif

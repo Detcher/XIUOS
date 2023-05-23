@@ -19,6 +19,7 @@
 */
 
 #include <transform.h>
+#include <my_board.h>
 
 #ifdef ADD_NUTTX_FETURES
 

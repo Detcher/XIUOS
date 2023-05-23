@@ -18,11 +18,13 @@
 * @date:    2022/12/7
 */
 
+#include <transform.h>
+#include <my_board.h>
+
 #ifdef ADD_XIZI_FETURES
 
 #include <stdio.h>
 #include <string.h>
-#include <transform.h>
 
 static uint16_t image_buff[384000];
 

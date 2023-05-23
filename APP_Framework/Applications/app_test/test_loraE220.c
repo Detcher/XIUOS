@@ -17,10 +17,12 @@
 * @author:  AIIT XUOS Lab
 * @date:    2022/12/17
 */
+#include <transform.h>
+#include <my_board.h>
+
 #ifdef ADD_XIZI_FETURES
 #include <stdio.h>
 #include <string.h>
-#include <transform.h>
 
 #define NULL_PARAMETER 0
 #define E220_CFG_LENGTH

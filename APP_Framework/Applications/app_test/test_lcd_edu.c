@@ -17,10 +17,12 @@
 * @author:  AIIT XUOS Lab
 * @date:    2022/12/17
 */
+#include <transform.h>
+#include <my_board.h>
+
 #ifdef ADD_XIZI_FETURES
 #include <stdio.h>
 #include <string.h>
-#include <transform.h>
 
 #define GRAPHIC_CTRL_RECT_UPDATE 0x00
 #define LCD_STRING_TYPE 0
@@ -80,6 +82,17 @@ void TestLcd(void)
         graph_param.pixel_info.pixel_color = color_select;
         PrivWrite(lcd_fd, &graph_param, NULL_PARAMETER);
     }
+    for (int i = 1; i <= 5; i++)
+    {
+        graph_param.type = LCD_DOT_TYPE;
+        graph_param.pixel_info.x_startpos = i * 50;
+        graph_param.pixel_info.y_startpos = 0;
+        graph_param.pixel_info.x_endpos = i * 50;
+        graph_param.pixel_info.y_endpos = 319;
+        graph_param.pixel_info.pixel_color = color_select;
+        PrivWrite(lcd_fd, &graph_param, NULL_PARAMETER);
+    }
+
     free(color_select);
 
     PrivClose(lcd_fd);

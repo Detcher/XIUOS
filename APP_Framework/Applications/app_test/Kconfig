@@ -51,6 +51,14 @@ menu "test app"
                             string "Set gpio dev path"
                             default "/dev/pin_dev"
                     endif
+
+                    config GPIO_POLL_MODE
+                    bool "Config test gpio with polling mode:)"
+                    default n
+
+                    config GPIO_INTERRUPT_MODE
+                    bool "Config test gpio with interrupt mode:)"
+                    default n
                 endif
 
             menuconfig USER_TEST_LORA
@@ -130,6 +138,10 @@ menu "test app"
                             string "Set wdt dev path"
                             default "/dev/wdt0_dev0"
                     endif
+
+                    config CONFIG_MY_WDT
+                    bool "Config test my_wdt:)"
+                    default n
                 endif
 
             menuconfig USER_TEST_LCD_EDU
@@ -142,6 +154,14 @@ menu "test app"
                             string "Set lcd dev path"
                             default "/dev/lcd_dev"
                     endif
+
+                    config CONFIG_LCD_EDU_RTC
+                    bool "Config test lcd_edu with rtc:)"
+                    default n
+
+                    config CONFIG_MY_LCD
+                    bool "Config test my_lcd:)"
+                    default n
                 endif
 
             menuconfig USER_TEST_TOUCH

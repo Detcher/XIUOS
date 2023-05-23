@@ -21,6 +21,8 @@
 */
 
 #include <xizi.h>
+// #include <connect_lcd.h>
+// #include <transform.h>
 
 extern void ZombieTaskRecycleInit(void);
 extern void InitIdleKTask(void);
@@ -34,6 +36,39 @@ void KServiceKTaskRecycle()
     ZombieTaskRecycleInit();
 }
 
+// void KTaskProgressBar(void *args)
+// {
+//     DrvLcdClear(0xFFFF);
+//     int loadStatue=84-1;
+
+//     while (1)
+//     {          
+//         // if(loadStatue > 148+84+2) break;
+        
+//         if(loadStatue++<=148+84+2)LcdDrawLine(loadStatue,190,loadStatue,206,0x0000);
+//         if(loadStatue++<=148+84+2)LcdDrawLine(loadStatue,190,loadStatue,206,0x0000);
+//        // PrivTaskDelay(250);
+//          if(loadStatue++<=148+84+2)LcdDrawLine(loadStatue,190,loadStatue,206,0x0000);
+//          if(loadStatue++<=148+84+2)LcdDrawLine(loadStatue,190,loadStatue,206,0x0000);
+
+//          if(loadStatue++<=148+84+2)LcdDrawLine(loadStatue,190,loadStatue,206,0x0000);
+//          if(loadStatue++<=148+84+2)LcdDrawLine(loadStatue,190,loadStatue,206,0x0000);
+        
+//          if(loadStatue++<=148+84+2)LcdDrawLine(loadStatue,190,loadStatue,206,0x0000);
+//          if(loadStatue++<=148+84+2)LcdDrawLine(loadStatue,190,loadStatue,206,0x0000);
+//     //    PrivTaskDelay(250);
+
+//          if(loadStatue++<=148+84+2)LcdDrawLine(loadStatue,190,loadStatue,206,0x0000);
+//          if(loadStatue++<=148+84+2)LcdDrawLine(loadStatue,190,loadStatue,206,0x0000);
+
+//          if(loadStatue++<=148+84+2)LcdDrawLine(loadStatue,190,loadStatue,206,0x0000);
+//          if(loadStatue++<=148+84+2)LcdDrawLine(loadStatue,190,loadStatue,206,0x0000);
+
+//         printf("%d ", loadStatue);
+//     }
+    
+// }
+
 void CreateKServiceKTask(void)
 {
     /* create zombie recycle task */
@@ -42,5 +77,14 @@ void CreateKServiceKTask(void)
     /* create idle task */
     KSerciveKTaskIdle();
 
+    /**
+     * @author: Detcher
+     * @description: create a real-time progress bar
+     * @details: Like i guess, after init the kernel queue and complete "SysInitOsAssign();",
+     *           here fullfil the premise of creating and inserting a task to the kernel queue,
+     *           thus create a "progress bar" task and terminate until all things done ("StartupOsAssign();").
+    */
+    // int32 taskid = KTaskCreate("KTaskProgressBar", KTaskProgressBar, NULL, 4096, 25);
+    // StartupKTask(taskid);
 }
 

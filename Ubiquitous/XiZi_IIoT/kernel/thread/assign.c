@@ -67,7 +67,7 @@ void KTaskOsAssign(void)
         goto SWITCH;
     }
 
-    /* if the running taskâ€™ priority is the highest and this task is not be yield then do not switch */
+    /* if the running taskâ€? priority is the highest and this task is not be yield then do not switch */
     if(highest_prio < Assign.os_running_task->task_dync_sched_member.cur_prio) {
         return;
     } else {
@@ -141,7 +141,7 @@ void KTaskOsAssignDoIrqSwitch(void *context)
         goto SWITCH;
     }
 
-    /* if the running taskâ€™ priority is the highest and this task is not be yield then do not switch */
+    /* if the running taskâ€? priority is the highest and this task is not be yield then do not switch */
     if(highest_prio < Assign.os_running_task->task_dync_sched_member.cur_prio) {
         return;
     } else {
@@ -366,6 +366,17 @@ __exit:
  */
 void StartupOsAssign(void)
 {
+    /**
+     * @author: Detcher
+     * @description: "Progress bar" task terminates here
+     * @details: remove the specific task out of the kernel queue
+    */
+    // struct TaskDescriptor *task;
+    // if( (task = KTaskSearch("KTaskProgressBar")) != NONE ) {
+    //     task->Done->Delete(task);
+    //     KPrintf("delete successfully!!\n");
+    // }
+
     struct TaskDescriptor *FirstRunningTask = NONE;
 
     FirstRunningTask = ChooseTaskWithHighestPrio(&Assign.os_assign_read_vector);

@@ -96,7 +96,7 @@ static struct
     void *args;
     GpioPinEdgeT edge;
 } IrqTable[32];
-
+// here!!
 static void pin_irq(int vector, void *param)
 {
     int pin_channel = vector - IRQN_GPIOHS0_INTERRUPT;
@@ -128,7 +128,7 @@ static void pin_irq(int vector, void *param)
         IrqTable[pin_channel].hdr(IrqTable[pin_channel].args);
     }
 }
-
+// HERE!
 static uint32 GpioIrqRegister(int32 pin_channel, int32 mode, void (*hdr)(void *args), void *args)
 {
     IrqTable[pin_channel].hdr = hdr;

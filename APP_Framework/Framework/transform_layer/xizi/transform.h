@@ -30,6 +30,8 @@
 #include <time.h>
 #include <user_api.h>
 
+#include <device.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -53,6 +55,19 @@ extern "C" {
 #define GPIO_CFG_OUTPUT_OD          0x04
 
 #define GPIO_CONFIG_MODE            0xffffffff
+
+/*************GPIO INTERRUPT-related DEFINE**********/
+// could be found the same #define in "dev_pin.h"
+#define GPIO_IRQ_REGISTER                0xfffffffe
+#define GPIO_IRQ_FREE                    0xfffffffd
+#define GPIO_IRQ_DISABLE                 0xfffffffc
+#define GPIO_IRQ_ENABLE                  0xfffffffb
+
+#define GPIO_IRQ_EDGE_RISING             0x00
+#define GPIO_IRQ_EDGE_FALLING            0x01
+#define GPIO_IRQ_EDGE_BOTH               0x02
+#define GPIO_IRQ_LEVEL_HIGH              0x03
+#define GPIO_IRQ_LEVEL_LOW               0x04
 
 /********************SERIAL define*******************/
 #define BAUD_RATE_2400          2400
@@ -93,51 +108,51 @@ extern "C" {
 #define SERIAL_RB_BUFSZ         128
 #endif
 
-struct PinDevIrq
-{
-    int irq_mode;//< RISING/FALLING/HIGH/LOW
-    void (*hdr) (void *args);//< callback function
-    void *args;//< the params of callback function
-};
+// struct PinDevIrq
+// {
+//     int irq_mode;//< RISING/FALLING/HIGH/LOW
+//     void (*hdr) (void *args);//< callback function
+//     void *args;//< the params of callback function
+// };
 
-struct PinParam
-{
-    int cmd;//< cmd:GPIO_CONFIG_MODE/GPIO_IRQ_REGISTER/GPIO_IRQ_FREE/GPIO_IRQ_DISABLE/GPIO_IRQ_ENABLE
-    long  pin;//< pin number
-    int mode;//< pin mode: input/output
-    struct PinDevIrq irq_set;//< pin irq set
-    uint64_t arg;
-};
+// struct PinParam
+// {
+//     int cmd;//< cmd:GPIO_CONFIG_MODE/GPIO_IRQ_REGISTER/GPIO_IRQ_FREE/GPIO_IRQ_DISABLE/GPIO_IRQ_ENABLE
+//     long  pin;//< pin number
+//     int mode;//< pin mode: input/output
+//     struct PinDevIrq irq_set;//< pin irq set
+//     uint64_t arg;
+// };
 
-struct PinStat
-{
-    long pin;//< pin number
-    uint16_t val;//< pin level
-};
+// struct PinStat
+// {
+//     long pin;//< pin number
+//     uint16_t val;//< pin level
+// };
 
-enum ExtSerialPortConfigure
-{
-    PORT_CFG_INIT = 0,
-    PORT_CFG_PARITY_CHECK,
-    PORT_CFG_DISABLE,
-    PORT_CFG_DIV,
-};
+// enum ExtSerialPortConfigure
+// {
+//     PORT_CFG_INIT = 0,
+//     PORT_CFG_PARITY_CHECK,
+//     PORT_CFG_DISABLE,
+//     PORT_CFG_DIV,
+// };
 
-struct SerialDataCfg
-{
-    uint32_t serial_baud_rate;
-    uint8_t serial_data_bits;
-    uint8_t serial_stop_bits;
-    uint8_t serial_parity_mode;
-    uint8_t serial_bit_order;
-    uint8_t serial_invert_mode;
-    uint16_t serial_buffer_size;
-    int32 serial_timeout;
+// struct SerialDataCfg
+// {
+//     uint32_t serial_baud_rate;
+//     uint8_t serial_data_bits;
+//     uint8_t serial_stop_bits;
+//     uint8_t serial_parity_mode;
+//     uint8_t serial_bit_order;
+//     uint8_t serial_invert_mode;
+//     uint16_t serial_buffer_size;
+//     int32 serial_timeout;
 
-    uint8_t is_ext_uart;
-    uint8_t ext_uart_no;
-    enum ExtSerialPortConfigure port_configure;
-};
+//     uint8_t is_ext_uart;
+//     uint8_t ext_uart_no;
+//     enum ExtSerialPortConfigure port_configure;
+// };
 
 enum IoctlDriverType
 {
@@ -172,26 +187,26 @@ struct PrivIoctlCfg
     void *args;
 };
 
-typedef struct 
-{
-    uint16 x_pos;
-    uint16 y_pos;
-    uint16 width;
-    uint16 height;
-    uint8  font_size;
-    uint8 *addr;
-    uint16 font_color;
-    uint16 back_color;
-}LcdStringParam;
+// typedef struct 
+// {
+//     uint16 x_pos;
+//     uint16 y_pos;
+//     uint16 width;
+//     uint16 height;
+//     uint8  font_size;
+//     uint8 *addr;
+//     uint16 font_color;
+//     uint16 back_color;
+// }LcdStringParam;
 
-typedef struct 
-{
-    uint16 x_startpos;
-    uint16 x_endpos;
-    uint16 y_startpos;
-    uint16 y_endpos;
-    void* pixel_color;
-}LcdPixelParam;
+// typedef struct 
+// {
+//     uint16 x_startpos;
+//     uint16 x_endpos;
+//     uint16 y_startpos;
+//     uint16 y_endpos;
+//     void* pixel_color;
+// }LcdPixelParam;
 
 struct CameraCfg
 {
@@ -205,12 +220,12 @@ struct CameraCfg
     uint8_t gain_manu_enable;
 };
 
-typedef struct 
-{
-    char type; // 0:write string;1:write dot
-    LcdPixelParam pixel_info;
-    LcdStringParam string_info;
-}LcdWriteParam;
+// typedef struct 
+// {
+//     char type; // 0:write string;1:write dot
+//     LcdPixelParam pixel_info;
+//     LcdStringParam string_info;
+// }LcdWriteParam;
 
 typedef struct
 {
@@ -225,11 +240,11 @@ struct TouchDataStandard
     uint16 y;
 };
 
-struct RtcDrvConfigureParam
-{
-    int rtc_operation_cmd;
-    time_t *time;
-};
+// struct RtcDrvConfigureParam
+// {
+//     int rtc_operation_cmd;
+//     time_t *time;
+// };
 
 typedef struct 
 {
@@ -387,6 +402,10 @@ void *PrivMalloc(size_t size);
 void *PrivRealloc(void *pointer, size_t size);
 void *PrivCalloc(size_t  count, size_t size);
 void PrivFree(void *pointer);
+
+/*************************************************/
+// could be found the same #define in "device.h"
+
 
 
 #ifdef __cplusplus

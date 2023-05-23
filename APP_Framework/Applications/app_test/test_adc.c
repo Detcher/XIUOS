@@ -17,11 +17,12 @@
 * @author:  AIIT XUOS Lab
 * @date:    2022/1/7
 */
+#include <transform.h>
+#include <my_board.h>
 
 #ifdef ADD_XIZI_FETURES
 #include <stdio.h>
 #include <string.h>
-#include <transform.h>
 
 void TestAdc(void)
 {

@@ -51,6 +51,12 @@ ifeq ($(CONFIG_ADD_XIZI_FETURES),y)
 
     ifeq ($(CONFIG_USER_TEST_GPIO),y)
         SRC_FILES += test_gpio.c
+        ifeq ($(CONFIG_GPIO_POLL_MODE),y)
+            SRC_FILES += polling_gpio.c
+        endif
+        ifeq ($(CONFIG_GPIO_INTERRUPT_MODE),y)
+            SRC_FILES += interrupt_gpio.c
+        endif
     endif
 
     ifeq ($(CONFIG_USER_TEST_LORA),y)
@@ -71,10 +77,19 @@ ifeq ($(CONFIG_ADD_XIZI_FETURES),y)
 
     ifeq ($(CONFIG_USER_TEST_LCD_EDU),y)
         SRC_FILES += test_lcd_edu.c
+        ifeq ($(CONFIG_CONFIG_LCD_EDU_RTC),y)
+            SRC_FILES += my_lcd_with_rtc.c
+        endif
+        ifeq ($(CONFIG_CONFIG_MY_LCD),y)
+            SRC_FILES += my_lcd.c
+        endif
     endif
 
     ifeq ($(CONFIG_USER_TEST_WDT),y)
         SRC_FILES += test_wdt.c
+        ifeq ($(CONFIG_CONFIG_MY_WDT),y)
+            SRC_FILES += my_wdt.c
+        endif
     endif 
 
     ifeq ($(CONFIG_USER_TEST_TOUCH),y)

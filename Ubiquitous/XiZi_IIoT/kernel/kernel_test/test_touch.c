@@ -76,6 +76,7 @@ int TestTouch(const char *bus_name, const char *driver_name, const char *device_
 void TouchTest(void)
 {
      TestTouch(TOUCH_BUS_NAME_1,TOUCH_DRV_NAME_1, TOUCH_1_DEVICE_NAME_0);
+    // TestTouch(TOUCH_BUS_NAME,TOUCH_DRV_NAME, TOUCH_DEVICE_NAME);
 }
 
 SHELL_EXPORT_CMD(SHELL_CMD_PERMISSION(0)|SHELL_CMD_TYPE(SHELL_TYPE_CMD_FUNC)|SHELL_CMD_PARAM_NUM(0),TouchTest, TouchTest,  Close AC task );

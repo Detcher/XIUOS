@@ -21,6 +21,7 @@ extern void ApplicationOtaTaskInit(void);
 int main(void)
 {
 	printf("Hello, world! \n");
+	printf("prod by. Detcher aka solodoloboi !\n");
 	FrameworkInit();
 #ifdef APPLICATION_OTA
 	ApplicationOtaTaskInit();

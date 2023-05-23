@@ -1,30 +1,9 @@
-/*
-* Copyright (c) 2020 AIIT XUOS Lab
-* XiUOS is licensed under Mulan PSL v2.
-* You can use this software according to the terms and conditions of the Mulan PSL v2.
-* You may obtain a copy of Mulan PSL v2 at:
-*        http://license.coscl.org.cn/MulanPSL2
-* THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
-* EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
-* MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
-* See the Mulan PSL v2 for more details.
-*/
-
-/**
-* @file:    test_gpio.c
-* @brief:   a application of GPIO function
-* @version: 1.1
-* @author:  AIIT XUOS Lab
-* @date:    2022/12/17
-*/
+#include <stdio.h>
+#include <string.h>
 #include <transform.h>
 #include <my_board.h>
 
-#ifdef ADD_XIZI_FETURES
-#include <stdio.h>
-#include <string.h>
-
-void  TestGpio(void)
+void  TestPollGpio(void)
 {
     int pin_fd = PrivOpen(GPIO_DEV_DRIVER, O_RDWR);
     if(pin_fd<0){
@@ -63,7 +42,9 @@ void  TestGpio(void)
 
     pin_led.pin = BSP_LED_PIN;
     pin_key.pin = BSP_KEY_PIN;
-    
+
+    pin_led.val = GPIO_LOW;
+
     //recycle read pin and write pin until key break
     while(1){
         if(0>PrivRead(pin_fd,&pin_key,NULL_PARAMETER)){
@@ -72,21 +53,26 @@ void  TestGpio(void)
             return;
         }
 
-        //led on if key pressed,or led off
-        if(pin_key.val){
-            pin_led.val = GPIO_HIGH;
-        }else{
-            pin_led.val = GPIO_LOW;
+        // pin_key.val == 0 if key pressed, then halt execution
+        if(pin_key.val == 0){
+            printf("exit successfully!\n");
+            PrivClose(pin_fd);
+            return;
         }            
         
         if(0>PrivWrite(pin_fd,&pin_led,NULL_PARAMETER)){
                 printf("write pin fd error %d\n", pin_fd);
                 PrivClose(pin_fd);
                 return;
-         }           
-
+        }   
+        
+        // Question here!!! if i set "pin_led.val = GPIO_HIGH;"(line 56) above rather than GPIO_LOW,
+        // and use "pin_led.val = ~pin_led.val;", it work! But if i set val to "GPIO_LOW",
+        // it won't work. But using "~" is wrong definitely, because ~1 != 0 and ~0 != 1, so we should use "!".
+        // And the qeustion is, why the first case works???
+        pin_led.val = !pin_led.val;
+        PrivTaskDelay(1000);
     }
 }
 
-PRIV_SHELL_CMD_FUNCTION(TestGpio, a gpio test sample, PRIV_SHELL_CMD_MAIN_ATTR);
-#endif
+PRIV_SHELL_CMD_FUNCTION(TestPollGpio, a gpio test sample, PRIV_SHELL_CMD_MAIN_ATTR);
