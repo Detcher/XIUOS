@@ -35,6 +35,9 @@ ifeq ($(CONFIG_ADD_XIZI_FETURES),y)
 
     ifeq ($(CONFIG_USER_TEST_FS),y)
         SRC_FILES += test_fs.c
+        ifeq ($(CONFIG_CONFIG_MY_FS),y)
+            SRC_FILES += my_fs.c
+        endif
     endif
 
     ifeq ($(CONFIG_USER_TEST_SEMC),y)
@@ -83,6 +86,9 @@ ifeq ($(CONFIG_ADD_XIZI_FETURES),y)
         ifeq ($(CONFIG_CONFIG_MY_LCD),y)
             SRC_FILES += my_lcd.c
         endif
+        ifeq ($(CONFIG_CONFIG_IMAGE_SWITCH),y)
+            SRC_FILES += image_switch.c
+        endif
     endif
 
     ifeq ($(CONFIG_USER_TEST_WDT),y)
@@ -98,6 +104,9 @@ ifeq ($(CONFIG_ADD_XIZI_FETURES),y)
 
     ifeq ($(CONFIG_USER_TEST_CAMERA),y)
         SRC_FILES += test_camera.c
+        ifeq ($(CONFIG_MY_CAMERA),y)
+            SRC_FILES += my_camera.c
+        endif
     endif
 
     ifeq ($(CONFIG_USER_TEST_ETHERNET),y)

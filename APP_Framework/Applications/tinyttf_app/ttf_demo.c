@@ -39,7 +39,7 @@ void* ttf_thread(void *parameter)
     }
 }
 
-pthread_t lvgl_task;
+static pthread_t lvgl_task;
 static int ttf_demo_init(void)
 {
     pthread_attr_t attr;

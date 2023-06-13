@@ -35,6 +35,10 @@ menu "test app"
                             string "Set test file path"
                             default "/test_file"
                     endif
+
+                    config CONFIG_MY_FS
+                        bool "Config test file-system with my usb:)"
+                        default n
                 endif
 
 
@@ -156,12 +160,16 @@ menu "test app"
                     endif
 
                     config CONFIG_LCD_EDU_RTC
-                    bool "Config test lcd_edu with rtc:)"
-                    default n
+                        bool "Config test lcd_edu with rtc:)"
+                        default n
 
                     config CONFIG_MY_LCD
-                    bool "Config test my_lcd:)"
-                    default n
+                        bool "Config test my_lcd:)"
+                        default n
+                    
+                    config CONFIG_IMAGE_SWITCH
+                        bool "Config image switcher:)"
+                        default n
                 endif
 
             menuconfig USER_TEST_TOUCH
@@ -217,6 +225,10 @@ menu "test app"
                             string "Set lcd dev path"
                             default "/dev/lcd_dev"
                     endif
+
+                    config MY_CAMERA
+                        bool "Config test camera with screenshot:)"
+                        default n
                 endif
 
             config USER_TEST_SEMC
